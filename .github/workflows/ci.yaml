@@ -26,7 +26,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           git config --local user.email "walter1008@gmail.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.name "waltervr"
           git add --force dist
           git commit -m "CI automation $(date)"
 
