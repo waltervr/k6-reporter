@@ -445,13 +445,13 @@
       <!-- ---- end tab ---- -->
 
       <input type="radio" name="tabs" id="tabfour">
-      <label for="tabfour"><i class="fas fa-exclamation-circle"></i> &nbsp; Failed Check List</label>
+      <label for="tabfour"><i class="fas fa-exclamation-circle"></i> &nbsp; Failed Checks</label>
       <div class="tab">
         <% function renderFailedCheck(check) { %>
           <thead>
             <tr>
               <th>
-                Failed Check Name
+                Check Name
               </th>
             </tr>
           </thead>
@@ -491,7 +491,7 @@
         } %>
       </div>
       <!-- ---- end tab ---- -->
-      
+
     </div>
     <footer>K6 Reporter v<%= version %> - Ben Coleman 2021, <a href="https://github.com/benc-uk/k6-reporter">[GitHub]</a></footer>
   </body>
