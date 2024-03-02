@@ -489,6 +489,14 @@
         <% for (const group of data.root_group.groups) {
           renderGroup(group);
         } %>
+        <h2>&bull; Other Checks</h2>
+          <table class="pure-table pure-table-horizontal" style="width: 100%">
+              <% for (const check of data.root_group.checks) {
+                if (check.fails > 0) {
+                  renderFailedCheck(check);
+                }
+              } %>
+          </table> 
       </div>
       <!-- ---- end tab ---- -->
 
