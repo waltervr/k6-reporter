@@ -186,6 +186,9 @@
         </div>
 
         <% for(group of data.root_group.groups) { %>
+          <% if(group.name.includes("setup")) {
+            continue
+          } %>
           <h2>&bull; Group - <%= group.name %></h2>
           <table class="pure-table pure-table-horizontal" style="width: 100%">
             <thead>

@@ -2,6 +2,9 @@ import http from 'k6/http';
 import { htmlReport } from '../dist/bundle.js'
 import { check,group } from 'k6';
 
+export function setup (){
+  
+}
 export default function () {
   group('demo', ()=>{
     const res = http.get('http://test.k6.io/');
