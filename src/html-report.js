@@ -29,22 +29,6 @@ export function htmlReport(data, opts = {}) {
     console.log(JSON.stringify(data, null, 2))
   }
 
-  // Count the thresholds and those that have failed
-  let thresholdFailures = 0
-  let thresholdCount = 0
-  for (let metricName in data.metrics) {
-    metricListSorted.push(metricName)
-    if (data.metrics[metricName].thresholds) {
-      thresholdCount++
-      let thresholds = data.metrics[metricName].thresholds
-      for (let thresName in thresholds) {
-        if (!thresholds[thresName].ok) {
-          thresholdFailures++
-        }
-      }
-    }
-  }
-
   // Count the checks and those that have passed or failed
   // NOTE. Nested groups are not checked!
   let checkFailures = 0
@@ -98,8 +82,7 @@ export function htmlReport(data, opts = {}) {
     title: opts.title,
     standardMetrics,
     otherMetrics,
-    thresholdFailures,
-    thresholdCount,
+    totalChecks: checkFailures + checkPasses,
     checkFailures,
     checkPasses,
     version,
