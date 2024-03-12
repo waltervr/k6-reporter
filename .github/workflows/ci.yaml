@@ -2,7 +2,7 @@ name: CI Checks & Build
 
 on:
   push:
-    branches: ["main", "develop"]
+    branches: ["main", "develop", "api-report"]
   pull_request:
 
 jobs:
