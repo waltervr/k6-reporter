@@ -106,11 +106,11 @@ function countChecks(checks) {
 }
 
 const getRequestId = () => {
-  return "PFC-".concat("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (character) => {
+  return `PFC-${"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (character) => {
     let random = Math.floor(Math.random() * 16);
     let value = character === "x" ? random : (random & 0x3 | 0x8);
     return value.toString(16);
-  }));
+  })}`;
 };
 
 export const getPayfieldsToken = async () => {
