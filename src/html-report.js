@@ -23,7 +23,6 @@ export function htmlReport(data, opts = {}) {
   }
 
   console.log(`[k6-reporter v${version}] Generating HTML summary report`)
-  let metricListSorted = []
 
   if (opts.debug) {
     console.log(JSON.stringify(data, null, 2))
