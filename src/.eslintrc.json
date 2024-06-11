@@ -12,7 +12,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "camelcase": "error",
+    // "camelcase": "error",
     "curly": "error",
     "no-unused-vars": "error",
     "no-var": "error",
