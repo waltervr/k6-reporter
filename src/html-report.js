@@ -105,3 +105,40 @@ function countChecks(checks) {
   }
   return { passes, fails }
 }
+
+const getRequestId = () => {
+  return "PFC-" + "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (character) => {
+    let random = Math.floor(Math.random() * 16);
+    let value = character === "x" ? random : (random & 0x3 | 0x8);
+    return value.toString(16);
+  });
+};
+
+export const getPayfieldsToken = async () => {
+  const requestId = getRequestId();
+  const url = "https://api.pit.paygateway.com/tokenization/temporary_tokens";
+  const headers = {
+    "x-gp-version": "2019-08-22",
+    "x-gp-api-key": "vCGr0YECzOX7sLGQ8AeffGDs55K1Ccmu",
+    "x-gp-environment": "test",
+    "x-gp-request-id": requestId,
+    "content-type": "application/json"
+  };
+  const payload = JSON.stringify({
+    "card": {
+      "card_number": "5413330089604111",
+      "card_security_code": "123",
+      "expiry_month": "12",
+      "expiry_year": "24"
+    }
+  });
+
+  const response = await fetch(url, {
+    body: payload,
+    headers,
+    method: "POST",
+  })
+  
+  const data = await response.json();
+  console.log(JSON.stringify(data))
+}
