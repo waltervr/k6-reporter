@@ -7,16 +7,16 @@
 import ejs from "../node_modules/ejs/ejs.min.js";
 import template from "./template.ejs";
 
-const version = "2.4.1";
+const version = "2.4.2";
 
 //
 // Main function should be imported and wrapped with the function handleSummary
 //
 export function htmlReport(data, opts = {}) {
   // Default options
-  if (!opts.title) {
-    opts.title = new Date().toISOString().slice(0, 16).replace("T", " ");
-  }
+  const currentDate = new Date().toISOString().slice(0, 16).replace("T", " ");
+
+  opts.title = !opts.title ? currentDate : `${currentDate} [${opts.title}]`;
   // eslint-disable-next-line
   if (!opts.hasOwnProperty("debug")) {
     opts.debug = false;

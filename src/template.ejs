@@ -288,7 +288,31 @@
       </div>
       <!-- ---- end tab ---- -->
 
+      <% if(data.documents) {%>
+      <input type="radio" name="tabs" id="taburls">
+      <label for="taburls"><i class="fas fa-minus-circle fa-fw"></i> &nbsp; Failed Requests</label>
+      <div class="tab">
+        <table class="pure-table pure-table-horizontal" style="width: 100%">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Status</th>
+              <th>Duration</th>              
+            </tr>
+          </thead>
+          <% for(doc of data.documents) { %>
+            <tr class="collapsible">
+              <td width="80%"><%=doc.request%></td>
+              <td width="10%"><%=doc.statusCode%></td>
+              <td width="10%"><%=doc.duration%></td>
+            </tr>
+          <% } %>
+        </table>     
+      </div>
+    <%} %>
+      <!-- ---- end tab ---- -->
+
     </div>
-    <footer>K6 Reporter v<%= version %> - Walter Vargas 2023, <a href="https://github.com/waltervr/k6-reporter">[GitHub]</a></footer>
+    <footer>K6 Reporter v<%= version %> - Walter Vargas 2024, <a href="https://github.com/waltervr/k6-reporter">[GitHub]</a></footer>
   </body>
 </html>
