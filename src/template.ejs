@@ -112,7 +112,19 @@
       }
       table {
         font-size: min(2vw, 22px);
-        width: 100%;
+        table-layout: fixed;
+      }
+      table.requests {
+        border-collapse: collapse;
+      }
+      table.requests td:first-child {
+        text-align: center;
+      }
+      table.requests tr {
+        word-wrap: break-word;
+      }
+      .expand-indicator {
+        cursor: pointer;
       }
       .icon { 
         position: absolute;
@@ -292,19 +304,24 @@
       <input type="radio" name="tabs" id="taburls">
       <label for="taburls"><i class="fas fa-minus-circle fa-fw"></i> &nbsp; Failed Requests</label>
       <div class="tab">
-        <table class="pure-table pure-table-horizontal" style="width: 100%">
+        <table class="pure-table pure-table-horizontal requests" style="width: 100%">
           <thead>
             <tr>
-              <th>URL</th>
-              <th>Status</th>
-              <th>Duration</th>              
+              <th style="width: 5%;"></th>
+              <th style="width: 75%;">URL</th>
+              <th style="width: 10%;">Status</th>
+              <th style="width: 10%;">Duration</th>              
             </tr>
           </thead>
           <% for(doc of data.documents) { %>
             <tr class="collapsible">
-              <td width="80%"><%=doc.request%></td>
-              <td width="10%"><%=doc.statusCode%></td>
-              <td width="10%"><%=doc.duration%></td>
+              <td><span class="expand-indicator"><i class="far fa-plus-square"></i></span></td>
+              <td><%=doc.request%></td>
+              <td><%=doc.statusCode%></td>
+              <td><%=doc.duration%>
+                <div class="expand-content">
+                </div>
+              </td>
             </tr>
           <% } %>
         </table>     
@@ -315,4 +332,32 @@
     </div>
     <footer>K6 Reporter v<%= version %> - Walter Vargas 2024, <a href="https://github.com/waltervr/k6-reporter">[GitHub]</a></footer>
   </body>
+  <script>
+    const expandIndicators = document.querySelectorAll('.expand-indicator');
+
+    expandIndicators.forEach(indicator => {
+      let expandedRow = null;
+
+      indicator.addEventListener('click', () => {
+        const row = indicator.parentNode.parentNode;
+        const expandContent = row.querySelector('.expand-content');
+
+        if (expandedRow) {
+          expandedRow.remove();
+          expandedRow = null;
+          indicator.innerHTML = '<i class="far fa-plus-square"></i>';
+          row.classList.remove('expanded');
+        } else {
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `<td></>
+          <td colspan="3"><%=doc.responseBody%></td>`;
+          row.after(newRow);
+          expandedRow = newRow;
+          indicator.innerHTML='<i class="far fa-minus-square"></i>';
+          
+          row.classList.add('expanded');
+        }
+      });
+    });
+  </script>
 </html>
