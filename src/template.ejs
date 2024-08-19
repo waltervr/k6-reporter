@@ -271,7 +271,7 @@
             </thead>
             <% for(check of group.checks) { %>
               <tr class="checkDetails <% if(check.fails > 0) { %>failed<% } %>">
-                <td width="50%">
+                <td width="70%">
                   <%= check.name %>
                 </td>
                 <td>
@@ -297,7 +297,7 @@
                 </thead>
                 <% for(check of data.root_group.checks) { %>
                   <tr class="checkDetails <% if(check.fails > 0) { %>failed<% } %>">
-                    <td width="50%">
+                    <td width="70%">
                       <%= check.name %>
                     </td>
                     <td>
