@@ -350,13 +350,24 @@
                     <% for (const subGroup of group.groups) { renderGroup(subGroup); } %>
                       <% } %>
                         <% for (const group of data.root_group.groups) { renderGroup(group); } %>
-                          <h2>&bull; Other Checks</h2>
-                          <table class="pure-table pure-table-horizontal" style="width: 100%">
-                            <% for (const check of data.root_group.checks) { if (check.fails> 0) {
-                              renderFailedCheck(check);
+                          <% function renderOther() { %>
+                            <% let hasFailedChecks=false; for (const check of data.root_group.checks) { if (check.fails>
+                              0) {
+                              hasFailedChecks = true;
+                              break;
                               }
-                              } %>
-                          </table>
+                              }
+                              if (hasFailedChecks) { %>
+                              <h2>&bull; Other Checks</h2>
+                              </h2>
+                              <table class="pure-table pure-table-horizontal" style="width: 100%">
+                                <% for (const check of data.root_group.checks) { if (check.fails> 0) {
+                                  renderFailedCheck(check);
+                                  }
+                                  } %>
+                              </table>
+                              <% } %>
+                                <% } %>
       </div>
       <% } %>
         <!-- ---- end tab ---- -->
