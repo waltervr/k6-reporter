@@ -194,6 +194,14 @@
       position: relative;
       z-index: 50;
     }
+
+    .expand-content {
+      display: none;
+    }
+
+    .expand-content.show {
+      display: contents;
+    }
   </style>
 </head>
 
@@ -396,9 +404,15 @@
                   </td>
                   <td>
                     <%=doc.duration%>
-                      <div class="expand-content">
-                      </div>
                   </td>
+                </tr>
+                <tr class="collapsible expand-content">
+                  <td></td>
+                  <td colspan="3">
+                    <%=doc.responseBody%>
+                  </td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <% } %>
             </table>
@@ -415,27 +429,12 @@
     const expandIndicators = document.querySelectorAll('.expand-indicator');
 
     expandIndicators.forEach(indicator => {
-      let expandedRow = null;
 
       indicator.addEventListener('click', () => {
         const row = indicator.parentNode.parentNode;
-        const expandContent = row.querySelector('.expand-content');
 
-        if (expandedRow) {
-          expandedRow.remove();
-          expandedRow = null;
-          indicator.innerHTML = '<i class="far fa-plus-square"></i>';
-          row.classList.remove('expanded');
-        } else {
-          const newRow = document.createElement('tr');
-          newRow.innerHTML = `<td></>
-            <td colspan="3"><%=doc.responseBody%></td>`;
-          row.after(newRow);
-          expandedRow = newRow;
-          indicator.innerHTML = '<i class="far fa-minus-square"></i>';
-
-          row.classList.add('expanded');
-        }
+        row.nextElementSibling.classList.toggle('show');
+        indicator.innerHTML = row.nextElementSibling.classList.contains('show') ? '<i class="far fa-minus-square"></i>' : '<i class="far fa-plus-square"></i>';
       });
     });
   </script>
