@@ -320,7 +320,7 @@
               <%} %>
     </div>
     <!-- ---- end tab ---- -->
-    <% if(data.metrics.checks.values.fails> 0) { %>
+    <% if(data.metrics.checks && data.metrics.checks.values.fails> 0) { %>
       <input type="radio" name="tabs" id="tabfour">
       <label for="tabfour"><i class="fas fa-exclamation-circle"></i> &nbsp; Failed Checks</label>
       <div class="tab">
