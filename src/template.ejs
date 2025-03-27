@@ -382,8 +382,8 @@
         <!-- ---- end tab ---- -->
 
         <% if(data.documents) {%>
-          <input type="radio" name="tabs" id="taburls">
-          <label for="taburls"><i class="fas fa-minus-circle fa-fw"></i> &nbsp; Failed Requests</label>
+          <input type="radio" name="tabs" id="tabcheckUrls">
+          <label for="tabcheckUrls"><i class="fa fa-exclamation-triangle fa-fw"></i> &nbsp; Failed Checks Requests</label>
           <div class="tab">
             <table class="pure-table pure-table-horizontal requests" style="width: 100%">
               <thead>
@@ -410,10 +410,39 @@
                 <tr class="collapsible expand-content">
                   <td></td>
                   <td colspan="3">
-                    <%=doc.responseBody%>
+                   <b>Request: </b>
+                    <code><%=doc.requestBody%></code>
+                  </br>
+                  </br>
+                    <b>Response: </b>
+                    <code><%=doc.responseBody%></code>
                   </td>
                   <td></td>
                   <td></td>
+                </tr>
+                <% } %>
+            </table>
+          </div>
+          <%} %>
+            <!-- ---- end tab ---- -->
+
+        <% if(data.errors.length > 0) {%>
+          <input type="radio" name="tabs" id="taburls">
+          <label for="taburls"><i class="fas fa-minus-circle fa-fw"></i> &nbsp; Errors</label>
+          <div class="tab">
+            <table class="pure-table pure-table-horizontal requests" style="width: 100%">
+              <thead>
+                <tr>
+                  <th style="width: 5%;"></th>
+                  <th style="width: 95%;">Message</th>
+                </tr>
+              </thead>
+              <% for(doc of data.errors) { %>
+                <tr class="collapsible">
+                  <td><span class="expand-indicator"><i class="far fa-plus-square"></i></span></td>
+                  <td>
+                    <%=doc%>
+                  </td>
                 </tr>
                 <% } %>
             </table>
