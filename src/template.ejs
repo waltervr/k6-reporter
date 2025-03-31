@@ -139,6 +139,7 @@
     table.requests {
       border-collapse: collapse;
       table-layout: fixed;
+      overflow-wrap: break-word;
     }
 
     table.requests td:first-child {
@@ -237,7 +238,7 @@
     <% if(data.metrics.http_req_failed && data.metrics.http_req_failed.values) { %>
       <div class="box <% if(data.metrics.http_req_failed.values.passes > 0) { %> failed <% } %>">
         <i class="far fa-times-circle icon"></i>
-        <h4>Failed Requests</h4>
+        <h4>Errors</h4>
         <div class="bignum">
           <%= data.metrics.http_req_failed.values.passes %>
         </div>
@@ -327,14 +328,21 @@
         <% function renderFailedCheck(check) { %>
           <thead>
             <tr>
-              <th>
-                Check Name
-              </th>
+              <th style="width: 5%;"></th>
+              <th style="width: 95%;">Check Name</th>
             </tr>
           </thead>
           <tr class="checkDetails failed">
+            <td><span class="expand-indicator"><i class="far fa-plus-square"></i></span></td>
+            <td><%= check.name %></td>
+          </tr>
+          <tr class="collapsible expand-content">
+            <td></td>
             <td>
-              <%= check.name %>
+              <% if(check.error) for(const err of check.error) { %>
+                <b><%=err.slice(0, err.indexOf(":") + 1)%></b><code><%=err.slice(err.indexOf(":") + 1)%></code>
+                <br>
+              <% } %>
             </td>
           </tr>
           <% if (check.checks) { for (const subCheck of check.checks) { renderFailedCheck(subCheck); } } %>
@@ -348,7 +356,7 @@
                   if (hasFailedChecks) { %>
                   <h2>&bull; Group - <%= group.name %>
                   </h2>
-                  <table class="pure-table pure-table-horizontal" style="width: 100%">
+                  <table class="pure-table requests pure-table-horizontal" style="width: 100%">
                     <% for (const check of group.checks) { if (check.fails> 0) {
                       renderFailedCheck(check);
                       }
@@ -381,7 +389,8 @@
       <% } %>
         <!-- ---- end tab ---- -->
 
-        <% if(data.documents) {%>
+        <!-- TODO: Find out usage. -->
+        <!-- <% if(data.documents) {%>
           <input type="radio" name="tabs" id="tabcheckUrls">
           <label for="tabcheckUrls"><i class="fa fa-exclamation-triangle fa-fw"></i> &nbsp; Failed Checks Requests</label>
           <div class="tab">
@@ -423,7 +432,7 @@
                 <% } %>
             </table>
           </div>
-          <%} %>
+          <%} %> -->
             <!-- ---- end tab ---- -->
 
         <% if(data.errors) {%>
@@ -439,7 +448,7 @@
               </thead>
               <% for(doc of data.errors) { %>
                 <tr class="collapsible">
-                  <td><span class="expand-indicator"><i class="far fa-plus-square"></i></span></td>
+                  <td></td>
                   <td>
                     <%=doc%>
                   </td>
