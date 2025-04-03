@@ -450,7 +450,10 @@
                 <tr class="collapsible">
                   <td></td>
                   <td>
-                    <%=doc%>
+                    <% for(const err of doc) { %>
+                      <%=err%>
+                      <br>
+                    <% } %>
                   </td>
                 </tr>
                 <% } %>
