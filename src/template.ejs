@@ -235,12 +235,12 @@
             <% } %>
       </div>
     </div>
-    <% if(data.metrics.http_req_failed && data.metrics.http_req_failed.values) { %>
-      <div class="box <% if(data.metrics.http_req_failed.values.passes > 0) { %> failed <% } %>">
+    <% if(data.errors) { %>
+      <div class="box <% if(data.errors.length > 0) { %> failed <% } %>">
         <i class="far fa-times-circle icon"></i>
         <h4>Errors</h4>
         <div class="bignum">
-          <%= data.metrics.http_req_failed.values.passes %>
+          <%= data.errors.length %>
         </div>
       </div>
       <% } %>
