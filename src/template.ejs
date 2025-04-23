@@ -435,7 +435,7 @@
           <%} %> -->
             <!-- ---- end tab ---- -->
 
-        <% if(data.errors) {%>
+        <% if(data.error && data.errors.length > 0) {%>
           <input type="radio" name="tabs" id="taburls">
           <label for="taburls"><i class="fas fa-minus-circle fa-fw"></i> &nbsp; Errors</label>
           <div class="tab">
